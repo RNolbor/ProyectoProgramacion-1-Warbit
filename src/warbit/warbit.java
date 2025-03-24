@@ -1,53 +1,42 @@
+package warbit;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package warbit;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
-/**
- *
- * @author ramon
- */
+public class Warbit extends JFrame {
+    private CardLayout cardLayout;
+    private JPanel panelPrincipal;
+    private MenuPanel menuPanel;
+    private JuegoPanelC juegoPanelC;
 
-public class warbit {
-    
-    public static void main(String[] args) {
-        
-        SwingUtilities.invokeLater(() -> {
-            JuegoFrame frame = new JuegoFrame();
-            frame.setVisible(true);
-        });
-    }
-}
-
-class JuegoFrame extends JFrame {
-    
-    public JuegoFrame() {
-        
-        setTitle("Warbit");
-        setSize(800, 600);
+    public Warbit() {
+        setTitle("War-Bit");
+        setSize(900, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        add(new JuegoPanel());
-    }
-}
-
-
-class JuegoPanel extends JPanel {
+        setResizable(false);
+        
+        cardLayout = new CardLayout();
+        panelPrincipal = new JPanel(cardLayout);
+        
+        menuPanel = new MenuPanel(cardLayout, panelPrincipal);
+        juegoPanelC = new JuegoPanelC(panelPrincipal);
+        
+        panelPrincipal.add(menuPanel, "Menu");
+        panelPrincipal.add(juegoPanelC, "Juego");
+        
+        add(panelPrincipal);
     
-    public JuegoPanel() {
-        
-        setBackground(Color.BLACK); 
     }
 
-    protected void paintComponent(Graphics g) {
-        
-        super.paintComponent(g);
-        
-        g.setColor(Color.WHITE);
-        g.fillRect(50, 50, 50, 50); 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Warbit warbit = new Warbit();
+            warbit.setVisible(true);
+        });
     }
 }
